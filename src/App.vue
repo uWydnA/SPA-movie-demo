@@ -21,10 +21,7 @@ Vue.use(animate)
 export default {
   components: {
     tabbar
-  },
-  mounted() {
-    this.$router.push('/films/nowplaying')
-  },
+  }
 }
 </script>
 

@@ -39,14 +39,7 @@ export default {
       }
     }
   },
-  mounted () {
-    const line = document.querySelector('.line')
-    if (/nowplaying/.test(location.hash)) {
-      line.style.width = '50%'
-    } else {
-      line.style.width = '150%'
-    }
-  }
+ 
 }
 </script>
 

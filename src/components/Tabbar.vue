@@ -1,28 +1,31 @@
 <template>
   <div>
-    <ul>
+    <ul class="tabbar">
       <router-link
         v-for="data in datalist"
         :key="data.url"
         :to="data.url"
         tag="li"
         activeClass="acitve"
-      >{{data.name}}</router-link>
+      >
+        <i class="iconfont" :class="data.className"></i>
+        <span>{{data.name}}</span>
+      </router-link>
     </ul>
   </div>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       datalist: [
-        { url: '/films/nowplaying', name: '电影' },
-        { url: '/cinemas', name: '影院' },
-        { url: '/center', name: '我的' }
+        { url: "/films/", name: "电影", className: "icon-video" },
+        { url: "/cinemas", name: "影院", className: "icon-electronics" },
+        { url: "/center", name: "我的", className: "icon-account" }
       ]
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -38,16 +41,29 @@ ul {
   background: #fff;
   list-style: none;
   li {
-    height: 49px;
+    height: 39px;
     width: 100%;
     float: left;
-    line-height: 49px;
     position: relative;
     color: #797d82;
     text-align: center;
+    padding-top: 10px;
   }
 }
 .acitve {
   color: #ff5f16;
+}
+.tabbar {
+  li {
+    i {
+      display: block;
+      margin-bottom: 5px;
+    }
+    span {
+      display: block;
+      font-size: 10px;
+      line-height: 12px;
+    }
+  }
 }
 </style>

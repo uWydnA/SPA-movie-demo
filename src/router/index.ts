@@ -12,6 +12,7 @@ const routes = [
   {
     path: '/films',
     name: 'Films',
+    redirect : '/films/nowplaying',
     component: Film,
     children: [
       {
@@ -32,6 +33,10 @@ const routes = [
     component: Cinema
   },
   {
+    path : '/detail/:filmId',
+    component : ()=>import('@/views/Films.vue')
+  },
+  {
     path: '/center',
     name: 'center',
     component: Center
@@ -40,6 +45,10 @@ const routes = [
     path: '/cinemas/search',
     name: 'search',
     component: Search
+  },
+  {
+    path : '/',
+    redirect : '/films/nowplaying'
   }
 
 ]

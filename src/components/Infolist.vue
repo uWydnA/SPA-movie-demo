@@ -1,7 +1,7 @@
 <template>
   <div id="box">
     <ul>
-      <li v-for="data in datalist" :key="data.filmId">
+      <li v-for="data in datalist" :key="data.filmId" @click="handleClick(data.filmId)">
         <div class="left">
           <img :src="data.poster" alt />
         </div>
@@ -12,7 +12,7 @@
             观众评分：
             <span class="want">{{data.grade}}</span>
           </div>
-          <p>主演：{{data.director}}</p>
+          <p>主演：{{data.actors | myfilter}}</p>
           <p>{{data.nation}} | {{data.runtime}}分钟</p>
         </div>
       </li>
@@ -21,6 +21,14 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
+Vue.filter('myfilter',data=>{
+  let str = '';
+  data.forEach(val=>{
+    str += val.name + ' '
+  })
+  return str
+})
 export default {
   props: {
     datalist: Array
@@ -32,6 +40,22 @@ export default {
   },
   updated () {
     this.isshow = true
+  },
+  methods : {
+    handleClick(data){
+      this.$router.push(`/detail/${data}`);
+    }
+  } ,
+  mounted () {
+    let line = document.querySelector('.line')
+    if (/nowplaying/.test(location.hash)) {
+      line.style.width = '50%'
+    } else {
+      line.style.width = '150%'
+    }
+  },
+  updated () {
+    console.log(this.datalist)
   }
 }
 </script>
