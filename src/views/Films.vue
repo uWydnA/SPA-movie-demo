@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-if="dataInfo">
+    <m-title :data='dataInfo.name' v-title='40' @event='handleback'></m-title>
     <div class="header">
       <img :src="dataInfo.poster" alt />
     </div>
@@ -15,7 +16,7 @@
         </div>
       </div>
       <div class="film-category grey-text">{{dataInfo.category}}</div>
-      <div class="film-premiere-time grey-text">2019-05 待定</div>
+      <div class="film-premiere-time grey-text">{{dataInfo.premiereAt | datafilter}}待定</div>
       <div class="film-nation-runtime grey-text">{{dataInfo.nation}} | {{dataInfo.runtime}}分钟</div>
       <div class="film-synopsis grey-text" :class="isshow?'hidde':''">{{dataInfo.synopsis}}</div>
       <div class="toggle" @click="seeMore">
@@ -30,35 +31,63 @@
       <div class="actors-title-bar">
         <span class="actors-title-text">演职人员</span>
       </div>
-      <ul>
-        <li v-for="data in dataInfo.actors" :key="data.actors">
+      <swiper
+        :obj="{ slidesPerView: 3,
+      spaceBetween: 30,
+      freeMode: true}"
+        dataname="actorsaaaa"
+      >
+        <div v-for="data in dataInfo.actors" :key="data.actors" class="swiper-slide eachactor">
           <img :src="data.avatarAddress" alt />
           <p>{{data.name}}</p>
           <span>{{data.role}}</span>
-        </li>
-      </ul>
+        </div>
+      </swiper>
     </div>
     <div class="photo">
       <div class="left">剧照</div>
-      <div class="right">全部({{dataInfo.photos.length}})></div>
+      <div class="right" @click='isPhotoShow=true'>全部({{dataInfo.photos.length}})></div>
     </div>
-    <div class="buy">
-      <a class="goSchedule" href="#/film/4645/cinemas">选座购票</a>
+    <swiper v-show='!isPhotoShow'
+      :obj="{ slidesPerView: 2,
+      spaceBetween: 40,
+      freeMode: true}"
+      dataname="photosaaa"
+    >
+      <div
+        v-for="(data,index) in dataInfo.photos"
+        :key="data"
+        class="swiper-slide"
+        @click="handleClick(index)"
+      >
+        <img :src="data" alt class="photos" />
+      </div>
+    </swiper>
+    <div class="buybtn" v-show='!isPhotoShow'>
+      <a href="##">选座购票</a>
     </div>
+    <div class="butbtnco" v-show='!isPhotoShow'></div>
+    <photo :data='dataInfo.photos' v-show='isPhotoShow' @isshow='handleShow'></photo>
   </div>
 </template>
 <script>
+import swiper from "@/components/Swiper.vue";
+import photo from '@/views/Photo.vue'
 import http from "@/utils/http";
 export default {
   data() {
     return {
-      dataInfo: {},
-      isshow: true
+      dataInfo: null,
+      isshow: true,
+      isPhotoShow : true
     };
+  },
+  components: {
+    swiper,
+    photo
   },
   mounted() {
     this.tabbar = document.querySelector(".tabbar");
-    console.log(this.tabbar);
     this.tabbar.style.display = "none";
     http
       .request({
@@ -69,12 +98,20 @@ export default {
       })
       .then(res => {
         this.dataInfo = res.data.data.film;
-        console.log(this.dataInfo);
       });
   },
   methods: {
     seeMore() {
       this.isshow = !this.isshow;
+    },
+    handleClick(index) {
+      console.log(index);
+    },
+    handleback () {
+      this.$router.back();
+    },
+    handleShow () {
+      this.isPhotoShow = false;
     }
   },
   beforeRouteLeave(to, from, next) {
@@ -85,7 +122,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-html,body{width: 100%;height: 100%;}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
 span,
 div,
 p,
@@ -185,35 +230,32 @@ li {
   margin-top: 10px;
   padding-bottom: 10px;
   background-color: #fff;
-  ul {
-    overflow: hidden;
-    padding-left: 15px;
-    li {
-      float: left;
-      width: 85px;
-      min-width: 85px;
-      margin-right: 10px;
-      text-align: center;
-      img {
-        width: 100%;
-      }
-      p {
-        、padding-top: 10px;
-        font-size: 12px;
-        color: #191a1b;
-        width: 85px;
-        height: 18px;
-        display: block;
-        overflow: hidden;
-        -o-text-overflow: ellipsis;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      span {
-        display: block;
-        font-size: 10px;
-        color: #797d82;
-      }
+  overflow: hidden;
+  padding-left: 15px;
+  .eachactor {
+    float: left;
+    width: 85px;
+    min-width: 85px;
+    margin-right: 10px;
+    text-align: center;
+    img {
+      width: 100%;
+    }
+    p {
+      padding-top: 10px;
+      font-size: 14px;
+      color: #191a1b;
+      height: 18px;
+      display: block;
+      overflow: hidden;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    span {
+      display: block;
+      font-size: 12px;
+      color: #797d82;
     }
   }
 }
@@ -238,23 +280,47 @@ li {
     float: right;
   }
 }
-.buy {
-  width: 100%;
-  height: 49px;
+.butbtnco {
+  height: 59px;
+}
+.buybtn {
   position: fixed;
-  bottom: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  z-index: 111;
   width: 100%;
-  height: 49px;
-    background-color: #ff5f16;
+  background-color: #ff5f16;
+
   a {
     text-decoration: none;
-    display: block;
-    height: 49px;
     text-align: center;
+    color: #fff;
+    display: block;
     color: #fff;
     font-size: 16px;
     line-height: 49px;
+    height: 49px;
   }
 }
+.photos {
+  width: 150px;
+  height: 100px;
+  background: rgb(249, 249, 249);
+  opacity: 1;
+  display: block;
+  position: relative;
+  margin-right: 10px;
+  img {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+.photosaaa {
+  margin: 15px 20px 0px 20px;
+}
+
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <swiper :key='datalist.length'>
+      <swiper :key='datalist.length' :obj='{loop:true}'>
         <div v-for="data in datalist" :key="data.bannerId" class="swiper-slide">
           <img :src="data.imgUrl" alt />
         </div>
@@ -12,6 +12,7 @@
   </div>
 </template>
 <script>
+import Vue from "vue"
 import swiper from "@/components/Swiper";
 import tapbar from "../components/Tapbar";
 import http from "@/utils/http";
@@ -22,7 +23,7 @@ export default {
   },
   data () {
     return {
-      datalist : []
+      datalist : [],
     }
   },
   mounted() {

@@ -1,54 +1,51 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Film from '@/views/Film.vue'
-import Cinema from '@/views/Cinema.vue'
-import Center from '@/views/Center.vue'
 import NowPlaying from '@/views/NowPlaying.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
-import Search from '@/views/Search.vue'
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/films',
     name: 'Films',
-    redirect : '/films/nowplaying',
-    component: Film,
+    redirect: '/films/nowplaying',
+    component: () => import('@/views/Film.vue'),
     children: [
       {
         path: '/films/nowPlaying',
         name: 'nowPlaying',
-        component: NowPlaying
+        component: () => import('@/views/NowPlaying.vue')
       },
       {
         path: '/films/comingSoon',
         name: 'comingSoon',
-        component: ComingSoon
+        component: () => import('@/views/ComingSoon.vue')
       }
     ]
   },
   {
     path: '/cinemas',
     name: 'cinemas',
-    component: Cinema
+    component: () => import('@/views/Cinema.vue')
   },
   {
-    path : '/detail/:filmId',
-    component : ()=>import('@/views/Films.vue')
+    path: '/detail/:filmId',
+    component: () => import('@/views/Films.vue')
   },
   {
     path: '/center',
     name: 'center',
-    component: Center
+    component: () => import('@/views/Center.vue')
   },
   {
     path: '/cinemas/search',
     name: 'search',
-    component: Search
+    component: () => import('@/views/Search.vue')
   },
   {
-    path : '/',
-    redirect : '/films/nowplaying'
+    path: '/',
+    redirect: '/films/nowplaying'
   }
 
 ]

@@ -9,40 +9,60 @@
         />
       </router-link>
     </div>
-    <loading :isshow='isshow'></loading>
-   <cinemalist :datalist='datalist'></cinemalist>
+    <div class="nav">
+      <ul>
+        <li @click='handleClick()'>
+          <span>全城</span>
+          <img class="show" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC"></img>
+          <img class="noshow" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAANlBMVEVHcEz/Xxb/Xxb/Xxf/Xxb/bST/ZBv/YBn/Xxb/Xxf/Xxf/Xxb/YBb/Xxb/YBb/YBb/YRb/XxYVPc+mAAAAEXRSTlMA5Z7SygccPfpr6OmSfp9ycXeG0lYAAABPSURBVAjXVY05EsAgDMTM4Zgzif7/2RTABFTtqNCKDCwEk4OcIOVNqAcAr8tcEYgRiNfMFMCr3kCxM7NWB+o8swp0cX9hVJ08run23dz7ASR9A7q9wA9qAAAAAElFTkSuQmCC'></img>
+        </li>
+        <li>
+          <span>APP订票</span>
+          <img class="show" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC"></img>
+          <img class="noshow" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAANlBMVEVHcEz/Xxb/Xxb/Xxf/Xxb/bST/ZBv/YBn/Xxb/Xxf/Xxf/Xxb/YBb/Xxb/YBb/YBb/YRb/XxYVPc+mAAAAEXRSTlMA5Z7SygccPfpr6OmSfp9ycXeG0lYAAABPSURBVAjXVY05EsAgDMTM4Zgzif7/2RTABFTtqNCKDCwEk4OcIOVNqAcAr8tcEYgRiNfMFMCr3kCxM7NWB+o8swp0cX9hVJ08run23dz7ASR9A7q9wA9qAAAAAElFTkSuQmCC'></img>
+        </li>
+        <li>
+          <span>最近去过</span>
+        <img class="show" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC"></img>
+          <img class="noshow" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAANlBMVEVHcEz/Xxb/Xxb/Xxf/Xxb/bST/ZBv/YBn/Xxb/Xxf/Xxf/Xxb/YBb/Xxb/YBb/YBb/YRb/XxYVPc+mAAAAEXRSTlMA5Z7SygccPfpr6OmSfp9ycXeG0lYAAABPSURBVAjXVY05EsAgDMTM4Zgzif7/2RTABFTtqNCKDCwEk4OcIOVNqAcAr8tcEYgRiNfMFMCr3kCxM7NWB+o8swp0cX9hVJ08run23dz7ASR9A7q9wA9qAAAAAElFTkSuQmCC'></img>
+        </li>
+      </ul>
+    </div>
+    <div class="dang"></div>
+    <loading :isshow="isshow"></loading>
+    <cinemalist :datalist="datalist"></cinemalist>
   </div>
 </template>
 <script>
-import axios from 'axios'
-import loading from '../components/Loading'
-import cinemalist from '../components/Cinemalist'
+import axios from "axios";
+import loading from "../components/Loading";
+import cinemalist from "../components/Cinemalist";
 export default {
-  data () {
+  data() {
     return {
       datalist: [],
       isshow: true
-    }
+    };
   },
   components: {
     loading,
     cinemalist
   },
-  mounted () {
+  mounted() {
     axios({
-      url: 'https://m.maizuo.com/gateway?cityId=310100&ticketFlag=1&k=2642662',
-      method: 'get',
+      url: "https://m.maizuo.com/gateway?cityId=310100&ticketFlag=1&k=2642662",
+      method: "get",
       headers: {
-        'X-Client-Info':
+        "X-Client-Info":
           ' {"a":"3000","ch":"1002","v":"5.0.4","e":"1581577409201863463470","bc":"310100"}',
-        'X-Host': 'mall.film-ticket.cinema.list'
+        "X-Host": "mall.film-ticket.cinema.list"
       }
     }).then(res => {
-      this.datalist = res.data.data.cinemas
-      this.isshow = false
-    })
+      this.datalist = res.data.data.cinemas;
+      this.isshow = false;
+    });
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -50,18 +70,65 @@ export default {
   margin: 0;
   padding: 0;
 }
+.dang{height: 94px;}
+.nav {
+  ul {
+    display: flex;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    top: 44px;
+    right: 0;
+    text-align: center;
+    background-color: #fff;
+    z-index: 2000;
+    li {
+      flex: 1;
+      list-style: none;
+      span {
+        font-size: 13px;
+        max-width: 58px;
+        line-height: 50px;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-right: 5px;
+        color: #191a1b;
+      }
+      .show {
+        display: inline-block;
+        width: 6px;
+        height: 3px;
+        vertical-align: middle;
+      }
+      .noshow {
+         display: inline-block;
+        width: 6px;
+        height: 3px;
+        vertical-align: middle;
+        display: none
+      }
+    }
+  }
+}
 .loading {
   width: 100%;
   margin: 0 auto;
 }
 .header {
+  position: fixed;
   height: 44px;
+  left: 0;
+  top: 0;
+  width: 100%;
   text-align: center;
   font: 17px/44px "";
   color: #191a1b;
   background: #fff;
   display: flex;
   align-items: center;
+  z-index: 1111;
   p {
     flex: 1;
   }
@@ -72,5 +139,4 @@ export default {
     margin-right: 20px;
   }
 }
-
 </style>

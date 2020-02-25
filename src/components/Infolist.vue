@@ -21,14 +21,7 @@
   </div>
 </template>
 <script>
-import Vue from 'vue'
-Vue.filter('myfilter',data=>{
-  let str = '';
-  data.forEach(val=>{
-    str += val.name + ' '
-  })
-  return str
-})
+
 export default {
   props: {
     datalist: Array
@@ -122,6 +115,10 @@ ul li .right p {
   line-height: 15px;
   font-size: 13px;
   color: #666;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 180px;
 }
 .no-more {
   height: 59px;
