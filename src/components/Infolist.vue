@@ -28,19 +28,16 @@ export default {
   },
   data () {
     return {
-      isshow: false
+      isshow: true
     }
   },
-  updated () {
-    this.isshow = true
-  },
-  methods : {
-    handleClick(data){
-      this.$router.push(`/detail/${data}`);
+  methods: {
+    handleClick (data) {
+      this.$router.push(`/detail/${data}`)
     }
-  } ,
+  },
   mounted () {
-    let line = document.querySelector('.line')
+    const line = document.querySelector('.line')
     if (/nowplaying/.test(location.hash)) {
       line.style.width = '50%'
     } else {

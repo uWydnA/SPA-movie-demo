@@ -2,6 +2,7 @@
   <div class="box">
     <div class="search">
       <div class="left">
+        <i class="iconfont icon-search"></i>
         <input type="text" placeholder="输入影院名字" v-model="mytext"/>
       </div>
 
@@ -28,11 +29,14 @@ export default {
   data () {
     return {
       datalist: [],
-      cinemalist: [],
       mytext: ''
     }
   },
   mounted () {
+    if(this.$store.state.cinemaList){
+      this.$store.dispatch('findCinemaList')
+    }
+    this.$store.commit('hide');
     this.axios({
       url: 'https://m.maizuo.com/gateway?cityId=310100&k=1796289',
       method: 'get',
@@ -43,21 +47,15 @@ export default {
     }).then(res => {
       this.datalist = res.data.data.cinemas
     })
-    this.axios({
-      url: 'https://m.maizuo.com/gateway?cityId=310100&ticketFlag=1&k=2642662',
-      method: 'get',
-      headers: {
-        'X-Client-Info':
-          ' {"a":"3000","ch":"1002","v":"5.0.4","e":"1581577409201863463470","bc":"310100"}',
-        'X-Host': 'mall.film-ticket.cinema.list'
-      }
-    }).then(res => {
-      this.cinemalist = res.data.data.cinemas
-    })
+  },
+  destroyed() {
+    setTimeout(()=>{
+      this.$store.commit('show');
+    },1000)
   },
   computed: {
     change () {
-      return this.cinemalist.filter((val) => {
+      return this.$store.state.cinemaList.filter((val) => {
         if (this.mytext.length >= 1) {
           return val.name.indexOf(this.mytext) > -1
         }
@@ -76,6 +74,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+.box{width: 100%;height: 100%;background-color: #fff;position: fixed;left: 0;top: 0;}
 .search {
   overflow: hidden;
   min-height: 49px;
@@ -88,6 +87,8 @@ export default {
     display: inline-block;
     border-radius: 3px;
     height: 30px;
+    i{margin:0 10px;vertical-align: middle;}
+    input{font-size:14px}
   }
   input {
     left: 33.5px;
@@ -131,7 +132,7 @@ ul {
     float: left;
     list-style: none;
     height: 30px;
-    background-color: rgba(233, 231, 231, 0.6);
+    background-color: rgba(233, 231, 231, 0.3);
     line-height: 14px;
     border-radius: 3px;
     -webkit-box-sizing: border-box;

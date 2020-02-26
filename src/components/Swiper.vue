@@ -6,15 +6,15 @@
   </div>
 </template>
 <script>
-import Swiper from "swiper";
-import "swiper/css/swiper.min.css";
+import Swiper from 'swiper'
+import 'swiper/css/swiper.min.css'
 export default {
-  mounted() {
-    this.swiper = new Swiper("."+(this.dataname?this.dataname:'swiper-container'), this.obj);
+  mounted () {
+    this.swiper = new Swiper('.' + (this.dataname ? this.dataname : 'swiper-container'), this.obj)
   },
-  props : ['obj','dataname'],
-  updated() {
+  props: ['obj', 'dataname'],
+  updated () {
     this.swiper.update()
-  },
-};
+  }
+}
 </script>

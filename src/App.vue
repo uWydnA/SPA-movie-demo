@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <tabbar></tabbar>
+    <tabbar v-show='$store.state.isTabberShow'></tabbar>
     <transition
       enter-active-class="animated fadeIn"
       leave-active-class="animated fadeOut"

@@ -16,16 +16,16 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       datalist: [
-        { url: "/films/", name: "电影", className: "icon-video" },
-        { url: "/cinemas", name: "影院", className: "icon-electronics" },
-        { url: "/center", name: "我的", className: "icon-account" }
+        { url: '/films/', name: '电影', className: 'icon-video' },
+        { url: '/cinemas', name: '影院', className: 'icon-electronics' },
+        { url: '/center', name: '我的', className: 'icon-account' }
       ]
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

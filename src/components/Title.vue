@@ -11,13 +11,13 @@
 </template>
 <script>
 export default {
-  props: ["data"],
+  props: ['data'],
   methods: {
     handleClick () {
-      this.$emit('event');
+      this.$emit('event')
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .all {

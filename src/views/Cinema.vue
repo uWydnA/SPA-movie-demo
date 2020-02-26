@@ -11,58 +11,109 @@
     </div>
     <div class="nav">
       <ul>
-        <li @click='handleClick()'>
-          <span>全城</span>
-          <img class="show" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC"></img>
-          <img class="noshow" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAANlBMVEVHcEz/Xxb/Xxb/Xxf/Xxb/bST/ZBv/YBn/Xxb/Xxf/Xxf/Xxb/YBb/Xxb/YBb/YBb/YRb/XxYVPc+mAAAAEXRSTlMA5Z7SygccPfpr6OmSfp9ycXeG0lYAAABPSURBVAjXVY05EsAgDMTM4Zgzif7/2RTABFTtqNCKDCwEk4OcIOVNqAcAr8tcEYgRiNfMFMCr3kCxM7NWB+o8swp0cX9hVJ08run23dz7ASR9A7q9wA9qAAAAAElFTkSuQmCC'></img>
+        <li @click='handleClick("isSelectShow")' :class="isSelectShow?'seleted':''">
+          <span>{{currentCity}}</span>
+          <img class="show" v-if='!isSelectShow'  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC"></img>
+          <img class="noshow" v-else src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAANlBMVEVHcEz/Xxb/Xxb/Xxf/Xxb/bST/ZBv/YBn/Xxb/Xxf/Xxf/Xxb/YBb/Xxb/YBb/YBb/YRb/XxYVPc+mAAAAEXRSTlMA5Z7SygccPfpr6OmSfp9ycXeG0lYAAABPSURBVAjXVY05EsAgDMTM4Zgzif7/2RTABFTtqNCKDCwEk4OcIOVNqAcAr8tcEYgRiNfMFMCr3kCxM7NWB+o8swp0cX9hVJ08run23dz7ASR9A7q9wA9qAAAAAElFTkSuQmCC'></img>
         </li>
-        <li>
+        <li @click='handleClick("isOrderShow")' :class="isOrderShow?'seleted':''">
           <span>APP订票</span>
-          <img class="show" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC"></img>
-          <img class="noshow" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAANlBMVEVHcEz/Xxb/Xxb/Xxf/Xxb/bST/ZBv/YBn/Xxb/Xxf/Xxf/Xxb/YBb/Xxb/YBb/YBb/YRb/XxYVPc+mAAAAEXRSTlMA5Z7SygccPfpr6OmSfp9ycXeG0lYAAABPSURBVAjXVY05EsAgDMTM4Zgzif7/2RTABFTtqNCKDCwEk4OcIOVNqAcAr8tcEYgRiNfMFMCr3kCxM7NWB+o8swp0cX9hVJ08run23dz7ASR9A7q9wA9qAAAAAElFTkSuQmCC'></img>
+          <img class="show" v-if='!isOrderShow' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC"></img>
+          <img class="noshow"  v-else src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAANlBMVEVHcEz/Xxb/Xxb/Xxf/Xxb/bST/ZBv/YBn/Xxb/Xxf/Xxf/Xxb/YBb/Xxb/YBb/YBb/YRb/XxYVPc+mAAAAEXRSTlMA5Z7SygccPfpr6OmSfp9ycXeG0lYAAABPSURBVAjXVY05EsAgDMTM4Zgzif7/2RTABFTtqNCKDCwEk4OcIOVNqAcAr8tcEYgRiNfMFMCr3kCxM7NWB+o8swp0cX9hVJ08run23dz7ASR9A7q9wA9qAAAAAElFTkSuQmCC'></img>
+        </li>
+        <li @click='handleClick("isRecentShow")' :class="isRecentShow?'seleted':''">
+          <span>最近去过</span>
+          <img class="show" v-if='!isRecentShow'  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC"></img>
+          <img class="noshow" v-else src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAANlBMVEVHcEz/Xxb/Xxb/Xxf/Xxb/bST/ZBv/YBn/Xxb/Xxf/Xxf/Xxb/YBb/Xxb/YBb/YBb/YRb/XxYVPc+mAAAAEXRSTlMA5Z7SygccPfpr6OmSfp9ycXeG0lYAAABPSURBVAjXVY05EsAgDMTM4Zgzif7/2RTABFTtqNCKDCwEk4OcIOVNqAcAr8tcEYgRiNfMFMCr3kCxM7NWB+o8swp0cX9hVJ08run23dz7ASR9A7q9wA9qAAAAAElFTkSuQmCC'></img>
+        </li>
+      </ul>
+    </div>
+    <div class="select" v-if='isSelectShow'>
+      <ul>
+        <li v-for='data in citylist' :key='data' @click='selectCity(data)'>
+          <p  :class="data===currentCity?'active':''">{{data}}</p>
+        </li>
+      </ul>
+    </div>
+    <div class="order" v-if='isOrderShow'>
+      <ul>
+        <li>
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAbCAMAAADIxWbRAAAARVBMVEVHcEz/Xxb/YRb/Xxb/Xxb/Yh3/Xxb/Xxb/YRb/axr/YBf/YRf/Xxf/YBf/Yhj/Xxb/Xxf/////YBn/qlX/Xxb/Xxb/XxbWaxl3AAAAFnRSTlMA2lni0Br8/VwTvFbdQj6d0QEyA7jNnhclQwAAAHZJREFUOMvl08cSgCAMBFAUK/a2//+pio5jIcje5fyGkGxQijjDODGsXDAzrAc0wRIgrzhW/I+1XUPdppHFTFEDETpvSyMJCi1IUOzUhZ6BvKF3bk/4Md47/EzhgoGwThjM9IBE9DusiQ2xkFokCwm2QaN9H3AFzvQKRwi3C2UAAAAASUVORK5CYII=" width="13px" height="9px" alt="">
+          <span class="activefont">APP订票</span>
         </li>
         <li>
-          <span>最近去过</span>
-        <img class="show" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC"></img>
-          <img class="noshow" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAANlBMVEVHcEz/Xxb/Xxb/Xxf/Xxb/bST/ZBv/YBn/Xxb/Xxf/Xxf/Xxb/YBb/Xxb/YBb/YBb/YRb/XxYVPc+mAAAAEXRSTlMA5Z7SygccPfpr6OmSfp9ycXeG0lYAAABPSURBVAjXVY05EsAgDMTM4Zgzif7/2RTABFTtqNCKDCwEk4OcIOVNqAcAr8tcEYgRiNfMFMCr3kCxM7NWB+o8swp0cX9hVJ08run23dz7ASR9A7q9wA9qAAAAAElFTkSuQmCC'></img>
+           <span class="placehold" style="width: 13px;"></span>
+          <span>前台兑换</span>
+        </li>
+      </ul>
+    </div>
+     <div class="recent" v-if='isRecentShow'>
+      <ul>
+        <li>
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAbCAMAAADIxWbRAAAARVBMVEVHcEz/Xxb/YRb/Xxb/Xxb/Yh3/Xxb/Xxb/YRb/axr/YBf/YRf/Xxf/YBf/Yhj/Xxb/Xxf/////YBn/qlX/Xxb/Xxb/XxbWaxl3AAAAFnRSTlMA2lni0Br8/VwTvFbdQj6d0QEyA7jNnhclQwAAAHZJREFUOMvl08cSgCAMBFAUK/a2//+pio5jIcje5fyGkGxQijjDODGsXDAzrAc0wRIgrzhW/I+1XUPdppHFTFEDETpvSyMJCi1IUOzUhZ6BvKF3bk/4Md47/EzhgoGwThjM9IBE9DusiQ2xkFokCwm2QaN9H3AFzvQKRwi3C2UAAAAASUVORK5CYII=" width="13px" height="9px" alt="">
+          <span class="activefont">最近去过</span>
+        </li>
+        <li>
+          <span class="placehold" style="width: 13px;"></span>
+          <span>离我最近</span>
         </li>
       </ul>
     </div>
     <div class="dang"></div>
     <loading :isshow="isshow"></loading>
-    <cinemalist :datalist="datalist"></cinemalist>
+    <cinemalist :datalist="selectList"></cinemalist>
   </div>
 </template>
 <script>
-import axios from "axios";
-import loading from "../components/Loading";
-import cinemalist from "../components/Cinemalist";
+import axios from 'axios'
+import loading from '../components/Loading'
+import cinemalist from '../components/Cinemalist'
 export default {
-  data() {
+  data () {
     return {
-      datalist: [],
-      isshow: true
-    };
+      isshow: true,
+      currentCity : '全城',
+      isSelectShow : false,
+      isNavActive : false,
+      isOrderShow : false,
+      isRecentShow : false
+    }
   },
   components: {
     loading,
     cinemalist
   },
-  mounted() {
-    axios({
-      url: "https://m.maizuo.com/gateway?cityId=310100&ticketFlag=1&k=2642662",
-      method: "get",
-      headers: {
-        "X-Client-Info":
-          ' {"a":"3000","ch":"1002","v":"5.0.4","e":"1581577409201863463470","bc":"310100"}',
-        "X-Host": "mall.film-ticket.cinema.list"
+  methods : {
+    handleClick (data) {
+      let arr = ['isSelectShow','isOrderShow','isRecentShow'];
+      arr.filter(val=>val!=data).forEach(val=>{
+        this[val] = false;
+      })
+      this[data] = !this[data];
+    },
+    selectCity (data) {
+      this.currentCity = data;
+      this.handleClick();
+    }
+  },
+  computed: {
+    citylist () {
+      return ['全城', ...new Set(this.$store.state.cinemaList.map(val => val.districtName))]
+    },
+    selectList () {
+      if(this.currentCity === '全城'){
+        return this.$store.state.cinemaList
+      }else{
+        return this.$store.state.cinemaList.filter(val=>val.districtName==this.currentCity)
       }
-    }).then(res => {
-      this.datalist = res.data.data.cinemas;
-      this.isshow = false;
-    });
+    }
+  },
+  mounted () {
+    if(this.$store.state.cinemaList){
+      this.$store.dispatch('findCinemaList')
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -71,7 +122,65 @@ export default {
   padding: 0;
 }
 .dang{height: 94px;}
+.order,.recent{
+   z-index: 101;
+  background-color: #fff;
+  position: fixed;
+  top:94px;
+  left: 0;
+  width: 100%;
+   ul{
+    display: flex;
+    flex-direction: column;
+    .activefont{color: #ff5f16;}
+    li{
+      border-bottom: 1px solid #ededed;
+      padding:0 0 0 25px;
+      list-style: none;
+      text-align: left;
+      span{
+        margin-left: 10px;
+    font-size: 13px;
+    line-height: 44px;}
+    }
+}
+}
+.select{
+  z-index: 101;
+  background-color: #fff;
+  position: fixed;
+  top:94px;
+  left: 0;
+  width: 100%;
+  ul{
+    padding: 10px 0 0;
+    margin: 0 0 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .active{border: 1px solid #ff5f16;color: #ff5f16;}
+    li{
+      list-style: none;
+      width: 20%;
+      height:30px;
+      padding-bottom: 15px;
+      padding-right: 10px;
+      text-align: center;
+    p{
+    border-radius: 3px;
+    border: 1px solid rgba(210, 214, 220, 0.5);
+    color: #797d82;
+    color: #797d82;
+    text-align: center;
+    height: 30px;
+    line-height: 27px;
+    font-size:12px;
+    }
+    }
+  }
+}
 .nav {
+  overflow: hidden;
   ul {
     display: flex;
     position: fixed;
@@ -82,7 +191,19 @@ export default {
     text-align: center;
     background-color: #fff;
     z-index: 2000;
+     .seleted{
+      span{
+      color: #ff5f16;
+      }
+       img.noshow {
+         visibility: visible;
+        display: inline-block;
+        width: 6px;
+        height: 3px;
+        vertical-align: middle;
+      }}
     li {
+      border-bottom: 1px solid #ededed;
       flex: 1;
       list-style: none;
       span {
@@ -96,18 +217,18 @@ export default {
         padding-right: 5px;
         color: #191a1b;
       }
-      .show {
+       .show {
         display: inline-block;
         width: 6px;
         height: 3px;
         vertical-align: middle;
       }
-      .noshow {
-         display: inline-block;
+       .noshow {
+        visibility: hidden;
+        display: inline-block;
         width: 6px;
         height: 3px;
         vertical-align: middle;
-        display: none
       }
     }
   }
@@ -117,6 +238,7 @@ export default {
   margin: 0 auto;
 }
 .header {
+  border-bottom: 1px solid #ededed;
   position: fixed;
   height: 44px;
   left: 0;

@@ -71,54 +71,54 @@
   </div>
 </template>
 <script>
-import swiper from "@/components/Swiper.vue";
+import swiper from '@/components/Swiper.vue'
 import photo from '@/views/Photo.vue'
-import http from "@/utils/http";
+import http from '@/utils/http'
 export default {
-  data() {
+  data () {
     return {
       dataInfo: null,
       isshow: true,
-      isPhotoShow : true
-    };
+      isPhotoShow: false
+    }
   },
   components: {
     swiper,
     photo
   },
-  mounted() {
-    this.tabbar = document.querySelector(".tabbar");
-    this.tabbar.style.display = "none";
+  mounted () {
+    this.tabbar = document.querySelector('.tabbar')
+    this.tabbar.style.display = 'none'
     http
       .request({
         url: `/gateway?filmId=${this.$route.params.filmId}&k=279515`,
         headers: {
-          "X-Host": "mall.film-ticket.film.info"
+          'X-Host': 'mall.film-ticket.film.info'
         }
       })
       .then(res => {
-        this.dataInfo = res.data.data.film;
-      });
+        this.dataInfo = res.data.data.film
+      })
   },
   methods: {
-    seeMore() {
-      this.isshow = !this.isshow;
+    seeMore () {
+      this.isshow = !this.isshow
     },
-    handleClick(index) {
-      console.log(index);
+    handleClick (index) {
+      console.log(index)
     },
     handleback () {
-      this.$router.back();
+      this.$router.back()
     },
     handleShow () {
-      this.isPhotoShow = false;
+      this.isPhotoShow = false
     }
   },
-  beforeRouteLeave(to, from, next) {
-    this.tabbar.style.display = "flex";
-    next();
+  beforeRouteLeave (to, from, next) {
+    this.tabbar.style.display = 'flex'
+    next()
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -38,8 +38,8 @@ export default {
         line.style.width = '150%'
       }
     }
-  },
- 
+  }
+
 }
 </script>
 

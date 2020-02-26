@@ -12,13 +12,13 @@
 
 <script>
 export default {
-  props: ["data"],
-  methods : {
+  props: ['data'],
+  methods: {
     handleClick () {
       this.$emit('isshow')
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
