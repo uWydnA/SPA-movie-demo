@@ -22,6 +22,7 @@
 
 <script>
 import cinemaslist from '../components/Cinemalist'
+import {mapState} from 'vuex'
 export default {
   components: {
     cinemaslist
@@ -33,10 +34,10 @@ export default {
     }
   },
   mounted () {
-    if(this.$store.state.cinemaList){
-      this.$store.dispatch('findCinemaList')
+    if (this.cinemaList.length === 0 ) {
+      this.$store.dispatch('cinema/findCinemaList')
     }
-    this.$store.commit('hide');
+    this.$store.commit('tabber/hide')
     this.axios({
       url: 'https://m.maizuo.com/gateway?cityId=310100&k=1796289',
       method: 'get',
@@ -48,14 +49,15 @@ export default {
       this.datalist = res.data.data.cinemas
     })
   },
-  destroyed() {
-    setTimeout(()=>{
-      this.$store.commit('show');
-    },1000)
+  destroyed () {
+    setTimeout(() => {
+      this.$store.commit('tabber/show')
+    }, 1000)
   },
   computed: {
+    ...mapState('cinema',['cinemaList']),
     change () {
-      return this.$store.state.cinemaList.filter((val) => {
+      return this.cinemaList.filter((val) => {
         if (this.mytext.length >= 1) {
           return val.name.indexOf(this.mytext) > -1
         }

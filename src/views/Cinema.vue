@@ -1,6 +1,10 @@
 <template>
   <div>
     <div class="header">
+      <router-link tag='div' to='/city' class="left">
+        <span>上海</span>
+        <img data-v-4070467a="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC" width="6px" height="3px">
+      </router-link>
       <p>影院</p>
       <router-link to="/cinemas/search" class="search">
         <img
@@ -68,49 +72,51 @@
 import axios from 'axios'
 import loading from '../components/Loading'
 import cinemalist from '../components/Cinemalist'
+import {mapState} from 'vuex'
 export default {
   data () {
     return {
       isshow: true,
-      currentCity : '全城',
-      isSelectShow : false,
-      isNavActive : false,
-      isOrderShow : false,
-      isRecentShow : false
+      currentCity: '全城',
+      isSelectShow: false,
+      isNavActive: false,
+      isOrderShow: false,
+      isRecentShow: false
     }
   },
   components: {
     loading,
     cinemalist
   },
-  methods : {
+  methods: {
     handleClick (data) {
-      let arr = ['isSelectShow','isOrderShow','isRecentShow'];
-      arr.filter(val=>val!=data).forEach(val=>{
-        this[val] = false;
+      const arr = ['isSelectShow', 'isOrderShow', 'isRecentShow']
+      arr.filter(val => val != data).forEach(val => {
+        this[val] = false
       })
-      this[data] = !this[data];
+      this[data] = !this[data]
     },
     selectCity (data) {
-      this.currentCity = data;
-      this.handleClick();
+      this.currentCity = data
+      this.handleClick()
     }
   },
   computed: {
+    ...mapState('cinema',['cinemaList']),
     citylist () {
-      return ['全城', ...new Set(this.$store.state.cinemaList.map(val => val.districtName))]
+      return ['全城', ...new Set(this.cinemaList.map(val => val.districtName))]
     },
     selectList () {
-      if(this.currentCity === '全城'){
-        return this.$store.state.cinemaList
-      }else{
-        return this.$store.state.cinemaList.filter(val=>val.districtName==this.currentCity)
+      if (this.currentCity === '全城') {
+        return this.cinemaList
+      } else {
+        return this.cinemaList.filter(val => val.districtName == this.currentCity)
       }
     }
   },
   mounted () {
-    if(this.$store.state.cinemaList){
-      this.$store.dispatch('findCinemaList')
+    if (this.cinemaList.length === 0 ) {
+      this.$store.dispatch('cinema/findCinemaList')
     }
   }
 }
@@ -251,8 +257,23 @@ export default {
   display: flex;
   align-items: center;
   z-index: 1111;
+  .left{
+    position: absolute;
+    left: 15px;
+    span{font-size: 13px;
+    max-width: 58px;
+    height: 16px;
+    line-height: 16px;
+    padding-right: 5px;
+    color: #191a1b;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    }
+    img{width: 6px;height: 3px;}
+  }
   p {
-    flex: 1;
+    flex: 3;
   }
   img {
     width: 18px;

@@ -1,6 +1,6 @@
 <template>
-  <div id="box">
-    <ul>
+  <div id="box" v-if='datalist.length'>
+    <ul >
       <li v-for="data in datalist" :key="data.filmId" @click="handleClick(data.filmId)">
         <div class="left">
           <img :src="data.poster" alt />
@@ -17,7 +17,7 @@
         </div>
       </li>
     </ul>
-    <div class="no-more" v-if="isshow">- 无更多电影 -</div>
+    <div class="no-more" >- 无更多电影 -</div>
   </div>
 </template>
 <script>

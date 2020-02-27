@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Film from '@/views/Film.vue'
-import NowPlaying from '@/views/NowPlaying.vue'
-import ComingSoon from '@/views/ComingSoon.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,6 +20,10 @@ const routes = [
         component: () => import('@/views/ComingSoon.vue')
       }
     ]
+  },
+  {
+    path : '/city',
+    component : ()=>import('@/views/City.vue')
   },
   {
     path: '/cinemas',

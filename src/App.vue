@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <tabbar v-show='$store.state.isTabberShow'></tabbar>
+    <tabbar v-show="isTabberShow"></tabbar>
+
     <transition
       enter-active-class="animated fadeIn"
       leave-active-class="animated fadeOut"
@@ -12,17 +13,21 @@
   </div>
 </template>
 <script>
-import Vue from 'vue'
-import tabbar from './components/Tabbar'
-import animate from 'animate.css'
-import axios from 'axios'
-Vue.prototype.axios = axios
-Vue.use(animate)
+import Vue from "vue";
+import tabbar from "./components/Tabbar";
+import animate from "animate.css";
+import axios from "axios";
+import { mapState } from "vuex";
+Vue.prototype.axios = axios;
+Vue.use(animate);
 export default {
   components: {
     tabbar
+  },
+  computed: {
+    ...mapState("tabber", ["isTabberShow"])
   }
-}
+};
 </script>
 
 <style lang="scss">
