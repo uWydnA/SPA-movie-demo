@@ -2,7 +2,7 @@
   <div>
     <div class="header">
       <router-link tag='div' to='/city' class="left">
-        <span>上海</span>
+        <span>{{cityName}}</span>
         <img data-v-4070467a="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAMAAAAIAYw9AAAAOVBMVEVHcEwZGhsZGxsZGhskJCQaGhwbGxsZHR0ZGhsZGhsZGhsZGhsZHBwaGhsaGhwZGxsaGh0bGxsZGhsAwt9XAAAAEnRSTlMA5Z7pB2scPfrK6NJskn6fcnH7htMrAAAAVElEQVQI11XNOQKAIBAEwQEXl0NQ+/+PNfDucIIabaGbnqyHXQHKfC9zgaABVD8Xr8CQlgw5SVLKkBdJ8gmIZhGY/BUoha9qKwDEz/fJJP3y1i5GB2jVA/F2X5USAAAAAElFTkSuQmCC" width="6px" height="3px">
       </router-link>
       <p>影院</p>
@@ -65,7 +65,7 @@
     </div>
     <div class="dang"></div>
     <loading :isshow="isshow"></loading>
-    <cinemalist :datalist="selectList"></cinemalist>
+    <cinemalist :datalist="selectList" class="selectlist" :style="{height:scrollHeight}"></cinemalist>
   </div>
 </template>
 <script>
@@ -73,6 +73,7 @@ import axios from 'axios'
 import loading from '../components/Loading'
 import cinemalist from '../components/Cinemalist'
 import {mapState} from 'vuex'
+import BetterScroll from 'better-scroll'
 export default {
   data () {
     return {
@@ -81,7 +82,8 @@ export default {
       isSelectShow: false,
       isNavActive: false,
       isOrderShow: false,
-      isRecentShow: false
+      isRecentShow: false,
+      scrollHeight : "0px"
     }
   },
   components: {
@@ -103,6 +105,7 @@ export default {
   },
   computed: {
     ...mapState('cinema',['cinemaList']),
+    ...mapState('cityN',['cityId','cityName']),
     citylist () {
       return ['全城', ...new Set(this.cinemaList.map(val => val.districtName))]
     },
@@ -115,8 +118,11 @@ export default {
     }
   },
   mounted () {
+    this.scrollHeight = document.documentElement.clientHeight - 94 - 49 + 'px';
+    new BetterScroll('.selectlist')
     if (this.cinemaList.length === 0 ) {
-      this.$store.dispatch('cinema/findCinemaList')
+      this.isshow = false;
+      this.$store.dispatch('cinema/findCinemaList',this.cityId)
     }
   }
 }
@@ -127,6 +133,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+.selectlist{overflow: hidden;}
 .dang{height: 94px;}
 .order,.recent{
    z-index: 101;
@@ -163,11 +170,10 @@ export default {
     margin: 0 0 0 10px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     .active{border: 1px solid #ff5f16;color: #ff5f16;}
     li{
       list-style: none;
-      width: 20%;
+      width: 22%;
       height:30px;
       padding-bottom: 15px;
       padding-right: 10px;
@@ -181,6 +187,9 @@ export default {
     height: 30px;
     line-height: 27px;
     font-size:12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     }
     }
   }

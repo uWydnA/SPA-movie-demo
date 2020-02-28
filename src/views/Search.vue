@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box" v-if='datalist'>
     <div class="search">
       <div class="left">
         <i class="iconfont icon-search"></i>
@@ -7,7 +7,7 @@
       </div>
 
       <div class="cancel" @click='goback'>取消</div>
-      <cinemaslist :datalist='change'></cinemaslist>
+      <cinemaslist :datalist='topDataList'></cinemaslist>
     </div>
     <div class="nextlist">
       <div class="next">离你最近</div>
@@ -22,7 +22,7 @@
 
 <script>
 import cinemaslist from '../components/Cinemalist'
-import {mapState} from 'vuex'
+import {mapState,mapGetters,mapActions} from 'vuex'
 export default {
   components: {
     cinemaslist
@@ -35,11 +35,11 @@ export default {
   },
   mounted () {
     if (this.cinemaList.length === 0 ) {
-      this.$store.dispatch('cinema/findCinemaList')
+      this.findCinemaList(this.cityId)
     }
     this.$store.commit('tabber/hide')
     this.axios({
-      url: 'https://m.maizuo.com/gateway?cityId=310100&k=1796289',
+      url: `https://m.maizuo.com/gateway?cityId=${this.cityId}&k=1796289`,
       method: 'get',
       headers: {
         'X-Host': 'mall.film-ticket.cinema.recommend',
@@ -56,15 +56,17 @@ export default {
   },
   computed: {
     ...mapState('cinema',['cinemaList']),
-    change () {
-      return this.cinemaList.filter((val) => {
-        if (this.mytext.length >= 1) {
-          return val.name.indexOf(this.mytext) > -1
+    ...mapState('cityN',['cityId']),
+    topDataList () {
+      if(this.cinemaList){
+        if(this.mytext){
+          return this.cinemaList.filter(val=>val.name.includes(this.mytext))
         }
-      })
+      }
     }
   },
   methods: {
+    ...mapActions('cinema',['findCinemaList']),
     goback () {
       this.$router.push('/cinemas')
     }

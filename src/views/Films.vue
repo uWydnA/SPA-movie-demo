@@ -1,6 +1,6 @@
 <template>
   <div v-if="dataInfo">
-    <m-title :data='dataInfo.name' v-title='40' @event='handleback'></m-title>
+    <m-title :data="dataInfo.name" v-title="40" @event="handleback"></m-title>
     <div class="header">
       <img :src="dataInfo.poster" alt />
     </div>
@@ -31,7 +31,7 @@
       <div class="actors-title-bar">
         <span class="actors-title-text">演职人员</span>
       </div>
-      <swiper
+      <swiper  v-show="!isPhotoShow"
         :obj="{ slidesPerView: 3,
       spaceBetween: 30,
       freeMode: true}"
@@ -44,11 +44,12 @@
         </div>
       </swiper>
     </div>
-    <div class="photo">
+    <div class="photo"  v-show="!isPhotoShow">
       <div class="left">剧照</div>
-      <div class="right" @click='isPhotoShow=true'>全部({{dataInfo.photos.length}})></div>
+      <div class="right" @click="isPhotoShow=true">全部({{dataInfo.photos.length}})></div>
     </div>
-    <swiper v-show='!isPhotoShow'
+    <swiper
+      v-show="!isPhotoShow"
       :obj="{ slidesPerView: 2,
       spaceBetween: 40,
       freeMode: true}"
@@ -63,62 +64,75 @@
         <img :src="data" alt class="photos" />
       </div>
     </swiper>
-    <div class="buybtn" v-show='!isPhotoShow'>
+    <div class="buybtn" v-show="!isPhotoShow">
       <a href="##">选座购票</a>
     </div>
-    <div class="butbtnco" v-show='!isPhotoShow'></div>
-    <photo :data='dataInfo.photos' v-show='isPhotoShow' @isshow='handleShow'></photo>
+    <div class="butbtnco" v-show="!isPhotoShow"></div>
+    <photo :data="dataInfo.photos" v-show="isPhotoShow" @isshow="handleShow" @showPhoto='handelPhoto'></photo>
   </div>
 </template>
 <script>
-import swiper from '@/components/Swiper.vue'
-import photo from '@/views/Photo.vue'
-import http from '@/utils/http'
+import swiper from "@/components/Swiper.vue";
+import photo from "@/views/Photo.vue";
+import http from "@/utils/http";
+import Vue from "vue";
+import { ImagePreview } from "vant";
+
+Vue.use(ImagePreview);
 export default {
-  data () {
+  data() {
     return {
       dataInfo: null,
       isshow: true,
       isPhotoShow: false
-    }
+    };
   },
   components: {
     swiper,
     photo
   },
-  mounted () {
-    this.tabbar = document.querySelector('.tabbar')
-    this.tabbar.style.display = 'none'
+  mounted() {
+    this.tabbar = document.querySelector(".tabbar");
+    this.tabbar.style.display = "none";
     http
       .request({
         url: `/gateway?filmId=${this.$route.params.filmId}&k=279515`,
         headers: {
-          'X-Host': 'mall.film-ticket.film.info'
+          "X-Host": "mall.film-ticket.film.info"
         }
       })
       .then(res => {
-        this.dataInfo = res.data.data.film
-      })
+        this.dataInfo = res.data.data.film;
+      });
   },
   methods: {
-    seeMore () {
-      this.isshow = !this.isshow
+    seeMore() {
+      this.isshow = !this.isshow;
     },
-    handleClick (index) {
-      console.log(index)
+    handleClick(index) {
+      ImagePreview({
+        images:this.dataInfo.photos,
+        startPosition: index,
+      });
     },
-    handleback () {
-      this.$router.back()
+    handelPhoto (index) {
+      ImagePreview({
+        images: this.dataInfo.photos,
+        startPosition: index,
+      });
     },
-    handleShow () {
-      this.isPhotoShow = false
+    handleback() {
+      this.$router.back();
+    },
+    handleShow() {
+      this.isPhotoShow = false;
     }
   },
-  beforeRouteLeave (to, from, next) {
-    this.tabbar.style.display = 'flex'
-    next()
+  beforeRouteLeave(to, from, next) {
+    this.tabbar.style.display = "flex";
+    next();
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -322,5 +336,4 @@ li {
 .photosaaa {
   margin: 15px 20px 0px 20px;
 }
-
 </style>

@@ -4,7 +4,7 @@
     <div class="dang"></div>
     <ul>
       <li v-for="(data,index) in data" :key="index">
-        <img :src="data" alt />
+        <img :src="data" alt @click='handleSwiper(index)' />
       </li>
     </ul>
   </div>
@@ -16,6 +16,9 @@ export default {
   methods: {
     handleClick () {
       this.$emit('isshow')
+    },
+    handleSwiper (index) {
+      this.$emit('showPhoto',index)
     }
   }
 }
@@ -32,7 +35,7 @@ html,body{width: 100%;height: 100%}
   width: 100%;
   height: 100%;
   background-color: #fff;
-  z-index: 9999999999;
+  z-index: 10;
   ul{
     display: flex;
     flex-wrap: wrap;

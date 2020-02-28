@@ -11,9 +11,9 @@ const module = {
     }
   },
   actions : {
-    findCinemaList (store: { commit: (arg0: string, arg1: any) => void }) {
+    findCinemaList (store: { commit: (arg0: string, arg1: any) => void },data: any) {
       axios({
-        url: 'https://m.maizuo.com/gateway?cityId=310100&ticketFlag=1&k=2642662',
+        url: `https://m.maizuo.com/gateway?cityId=${data}&ticketFlag=1&k=2642662`,
         method: 'get',
         headers: {
           'X-Client-Info':
@@ -26,7 +26,6 @@ const module = {
     }
   },
   getters : {
-
   }
 }
 export default module;

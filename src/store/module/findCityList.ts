@@ -6,11 +6,11 @@ const module = {
   },
   mutations : {
     commitCityList (state: { citylist: any },data: any) {
-      state.citylist = data
+      state.citylist = data;
     }
   },
   actions : {
-   findCityList (store: { commit: (arg0: string, arg1: any) => void }) {
+   findCity (store: { commit: (arg0: string, arg1: any) => void }) {
     axios({
       url:'https://m.maizuo.com/gateway?k=7588732',
       method :'get',

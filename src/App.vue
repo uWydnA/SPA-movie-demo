@@ -19,6 +19,7 @@ import animate from "animate.css";
 import axios from "axios";
 import { mapState } from "vuex";
 Vue.prototype.axios = axios;
+
 Vue.use(animate);
 export default {
   components: {
