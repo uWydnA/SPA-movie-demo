@@ -22,7 +22,7 @@
 
 <script>
 import cinemaslist from '../components/Cinemalist'
-import {mapState,mapGetters,mapActions} from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     cinemaslist
@@ -34,7 +34,7 @@ export default {
     }
   },
   mounted () {
-    if (this.cinemaList.length === 0 ) {
+    if (this.cinemaList.length === 0) {
       this.findCinemaList(this.cityId)
     }
     this.$store.commit('tabber/hide')
@@ -55,18 +55,18 @@ export default {
     }, 1000)
   },
   computed: {
-    ...mapState('cinema',['cinemaList']),
-    ...mapState('cityN',['cityId']),
+    ...mapState('cinema', ['cinemaList']),
+    ...mapState('cityN', ['cityId']),
     topDataList () {
-      if(this.cinemaList){
-        if(this.mytext){
-          return this.cinemaList.filter(val=>val.name.includes(this.mytext))
+      if (this.cinemaList) {
+        if (this.mytext) {
+          return this.cinemaList.filter(val => val.name.includes(this.mytext))
         }
       }
     }
   },
   methods: {
-    ...mapActions('cinema',['findCinemaList']),
+    ...mapActions('cinema', ['findCinemaList']),
     goback () {
       this.$router.push('/cinemas')
     }

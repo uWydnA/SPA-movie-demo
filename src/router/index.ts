@@ -22,8 +22,8 @@ const routes = [
     ]
   },
   {
-    path : '/city',
-    component : ()=>import('@/views/City.vue')
+    path: '/city',
+    component: () => import('@/views/City.vue')
   },
   {
     path: '/cinemas',

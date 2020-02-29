@@ -72,67 +72,67 @@
   </div>
 </template>
 <script>
-import swiper from "@/components/Swiper.vue";
-import photo from "@/views/Photo.vue";
-import http from "@/utils/http";
-import Vue from "vue";
-import { ImagePreview } from "vant";
+import swiper from '@/components/Swiper.vue'
+import photo from '@/views/Photo.vue'
+import http from '@/utils/http'
+import Vue from 'vue'
+import { ImagePreview } from 'vant'
 
-Vue.use(ImagePreview);
+Vue.use(ImagePreview)
 export default {
-  data() {
+  data () {
     return {
       dataInfo: null,
       isshow: true,
       isPhotoShow: false
-    };
+    }
   },
   components: {
     swiper,
     photo
   },
-  mounted() {
-    this.tabbar = document.querySelector(".tabbar");
-    this.tabbar.style.display = "none";
+  mounted () {
+    this.tabbar = document.querySelector('.tabbar')
+    this.tabbar.style.display = 'none'
     http
       .request({
         url: `/gateway?filmId=${this.$route.params.filmId}&k=279515`,
         headers: {
-          "X-Host": "mall.film-ticket.film.info"
+          'X-Host': 'mall.film-ticket.film.info'
         }
       })
       .then(res => {
-        this.dataInfo = res.data.data.film;
-      });
+        this.dataInfo = res.data.data.film
+      })
   },
   methods: {
-    seeMore() {
-      this.isshow = !this.isshow;
+    seeMore () {
+      this.isshow = !this.isshow
     },
-    handleClick(index) {
+    handleClick (index) {
       ImagePreview({
-        images:this.dataInfo.photos,
-        startPosition: index,
-      });
+        images: this.dataInfo.photos,
+        startPosition: index
+      })
     },
     handelPhoto (index) {
       ImagePreview({
         images: this.dataInfo.photos,
-        startPosition: index,
-      });
+        startPosition: index
+      })
     },
-    handleback() {
-      this.$router.back();
+    handleback () {
+      this.$router.back()
     },
-    handleShow() {
-      this.isPhotoShow = false;
+    handleShow () {
+      this.isPhotoShow = false
     }
   },
-  beforeRouteLeave(to, from, next) {
-    this.tabbar.style.display = "flex";
-    next();
+  beforeRouteLeave (to, from, next) {
+    this.tabbar.style.display = 'flex'
+    next()
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

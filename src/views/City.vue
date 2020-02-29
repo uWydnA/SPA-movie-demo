@@ -38,106 +38,114 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions,mapMutations } from "vuex";
-import Vue from "vue";
-import { List, Cell, Search, IndexBar, IndexAnchor, Toast } from "vant";
-import axios from "axios";
-Vue.use(Toast);
-Vue.use(Search);
-Vue.use(IndexBar);
-Vue.use(IndexAnchor);
-Vue.use(List);
-Vue.use(Cell);
+import { mapState, mapActions, mapMutations } from 'vuex'
+import Vue from 'vue'
+import { List, Cell, Search, IndexBar, IndexAnchor, Toast } from 'vant'
+import axios from 'axios'
+Vue.use(Toast)
+Vue.use(Search)
+Vue.use(IndexBar)
+Vue.use(IndexAnchor)
+Vue.use(List)
+Vue.use(Cell)
 export default {
-  data() {
+  data () {
     return {
       cityGroup: null,
-      citylisted : [],
-      value: "",
+      citylisted: [],
+      value: '',
       isCancel: true,
       noInput: true,
-      indexList:[]
-    };
-  },
-  beforeMount() {
-    Toast.loading({
-      message: "加载中...",
-      forbidClick: true,
-      overlay: true
-    });
-  },
-  mounted() {
-    // this.findCity()
-    axios({
-      url: "https://m.maizuo.com/gateway?k=7588732",
-      method: "get",
-      headers: {
-        "X-Client-Info":
-          '{"a":"3000","ch":"1002","v":"5.0.4","e":"1582528983545460847732"}',
-        "X-Host": "mall.film-ticket.city.list"
-      }
-    })
-    .then(res => {
-      this.cityGroup = res.data.data.cities;
-      this.dataCity(res.data.data.cities)
-    });
-  },
-  computed: {
-    ...mapState("city", ["citylist"]),
-    ...mapState("cityN", ["cityName",'cityId']),
-    searchlist() {
-      return this.cityGroup.filter(val => val.pinyin.includes(this.value));
+      indexList: []
     }
   },
-  updated() {
-    Toast.clear();
+  beforeMount () {
+    Toast.loading({
+      message: '加载中...',
+      forbidClick: true,
+      overlay: true
+    })
+  },
+  mounted () {
+    // this.findCity()
+    axios({
+      url: 'https://m.maizuo.com/gateway?k=7588732',
+      method: 'get',
+      headers: {
+        'X-Client-Info':
+          '{"a":"3000","ch":"1002","v":"5.0.4","e":"1582528983545460847732"}',
+        'X-Host': 'mall.film-ticket.city.list'
+      }
+    })
+      .then(res => {
+        this.cityGroup = res.data.data.cities
+        this.dataCity(res.data.data.cities)
+      })
+  },
+  // eslint-disable-next-line no-dupe-keys
+  beforeMount () {
+    this.hide()
+  },
+  destroyed () {
+    this.show()
+  },
+  computed: {
+    ...mapState('city', ['citylist']),
+    ...mapState('cityN', ['cityName', 'cityId']),
+    searchlist () {
+      return this.cityGroup.filter(val => val.pinyin.includes(this.value))
+    }
+  },
+  updated () {
+    Toast.clear()
   },
   methods: {
-    ...mapActions("city", ["findCity"]),
-    ...mapMutations("cinema", ["SaveCinemalist"]),
-    ...mapMutations("cityN", ["setCityName",'setCityId']),
-    setCity (id,name){
-      this.SaveCinemalist([]);
-      this.setCityName(name);
-      this.setCityId(id);
-      localStorage.setItem('cityName',name);
-      localStorage.setItem('cityId',id);
+    ...mapMutations('tabber', ['show', 'hide']),
+    ...mapActions('city', ['findCity']),
+    ...mapMutations('cinema', ['SaveCinemalist']),
+    ...mapMutations('cityN', ['setCityName', 'setCityId']),
+    setCity (id, name) {
+      this.SaveCinemalist([])
+      this.setCityName(name)
+      this.setCityId(id)
+      localStorage.setItem('cityName', name)
+      localStorage.setItem('cityId', id)
       this.$router.back()
     },
     dataCity (data) {
-      let letterArr = [];
-      let cityArr = [];
-      for(var i =65;i<91;i++){
+      const letterArr = []
+      const cityArr = []
+      for (var i = 65; i < 91; i++) {
         letterArr.push(String.fromCharCode(i))
       }
-      for(var i in letterArr){
-        let temparr = [];
-        temparr = data.filter(val=>val.pinyin.substring(0,1).toUpperCase()===letterArr[i])
-        if(temparr.length!=0){
+      for (var i in letterArr) {
+        let temparr = []
+        temparr = data.filter(val => val.pinyin.substring(0, 1).toUpperCase() === letterArr[i])
+        if (temparr.length != 0) {
           cityArr.push({
-            index:letterArr[i],
-            list:temparr
-          });
+            index: letterArr[i],
+            list: temparr
+          })
           this.indexList.push(letterArr[i])
         }
       }
-      this.citylisted = cityArr;
+      this.citylisted = cityArr
     },
-    onSearch() {
-      console.log(this.value);
+    onSearch () {
+      console.log(this.value)
     },
-    onCancel() {
-      this.isCancel = true;
+    onCancel () {
+      this.isCancel = true
     },
-    oninput() {
-      if (this.value === "") {
-        this.noInput = true;
+    oninput () {
+      if (this.value === '') {
+        this.noInput = true
       } else {
-        this.noInput = false;
+        this.noInput = false
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

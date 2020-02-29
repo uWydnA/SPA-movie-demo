@@ -1,17 +1,17 @@
 import axios from 'axios'
 const module = {
-  namespaced : true,
-  state : {
+  namespaced: true,
+  state: {
     cinemaList: []
-    
+
   },
-  mutations : {
+  mutations: {
     SaveCinemalist (state: { cinemaList: any }, data: any) {
       state.cinemaList = data
     }
   },
-  actions : {
-    findCinemaList (store: { commit: (arg0: string, arg1: any) => void },data: any) {
+  actions: {
+    findCinemaList (store: { commit: (arg0: string, arg1: any) => void }, data: any) {
       axios({
         url: `https://m.maizuo.com/gateway?cityId=${data}&ticketFlag=1&k=2642662`,
         method: 'get',
@@ -25,7 +25,7 @@ const module = {
       })
     }
   },
-  getters : {
+  getters: {
   }
 }
-export default module;
+export default module

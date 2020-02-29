@@ -69,10 +69,11 @@
   </div>
 </template>
 <script>
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import axios from 'axios'
 import loading from '../components/Loading'
 import cinemalist from '../components/Cinemalist'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import BetterScroll from 'better-scroll'
 export default {
   data () {
@@ -83,7 +84,7 @@ export default {
       isNavActive: false,
       isOrderShow: false,
       isRecentShow: false,
-      scrollHeight : "0px"
+      scrollHeight: '0px'
     }
   },
   components: {
@@ -93,7 +94,7 @@ export default {
   methods: {
     handleClick (data) {
       const arr = ['isSelectShow', 'isOrderShow', 'isRecentShow']
-      arr.filter(val => val != data).forEach(val => {
+      arr.filter(val => val !== data).forEach(val => {
         this[val] = false
       })
       this[data] = !this[data]
@@ -104,8 +105,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('cinema',['cinemaList']),
-    ...mapState('cityN',['cityId','cityName']),
+    ...mapState('cinema', ['cinemaList']),
+    ...mapState('cityN', ['cityId', 'cityName']),
     citylist () {
       return ['全城', ...new Set(this.cinemaList.map(val => val.districtName))]
     },
@@ -113,16 +114,17 @@ export default {
       if (this.currentCity === '全城') {
         return this.cinemaList
       } else {
-        return this.cinemaList.filter(val => val.districtName == this.currentCity)
+        return this.cinemaList.filter(val => val.districtName === this.currentCity)
       }
     }
   },
   mounted () {
-    this.scrollHeight = document.documentElement.clientHeight - 94 - 49 + 'px';
+    this.scrollHeight = document.documentElement.clientHeight - 94 - 49 + 'px'
+    // eslint-disable-next-line no-new
     new BetterScroll('.selectlist')
-    if (this.cinemaList.length === 0 ) {
-      this.isshow = false;
-      this.$store.dispatch('cinema/findCinemaList',this.cityId)
+    if (this.cinemaList.length === 0) {
+      this.isshow = false
+      this.$store.dispatch('cinema/findCinemaList', this.cityId)
     }
   }
 }

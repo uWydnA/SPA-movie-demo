@@ -1,22 +1,22 @@
 const module = {
-  namespaced : true,
-  state : {
+  namespaced: true,
+  state: {
     cityId: 110100,
-    cityName: "北京"
+    cityName: '北京'
   },
-  mutations : {
-   setCityName (state: { cityName: any; },data: any) {
-    state.cityName = data
-   },
-   setCityId (state: { cityId: any; },data: any) {
-    state.cityId = data
-   }
+  mutations: {
+    setCityName (state: { cityName: any }, data: any) {
+      state.cityName = data
+    },
+    setCityId (state: { cityId: any }, data: any) {
+      state.cityId = data
+    }
   },
-  actions : {
+  actions: {
 
   },
-  getters : {
-    change (state: { cinema: { cinemaList: any[] } },data: any) {
+  getters: {
+    change (state: { cinema: { cinemaList: any[] } }, data: any) {
       return state.cinema.cinemaList.filter((val) => {
         if (data.length >= 1) {
           return val.name.indexOf(data) > -1
@@ -25,4 +25,4 @@ const module = {
     }
   }
 }
-export default module;
+export default module

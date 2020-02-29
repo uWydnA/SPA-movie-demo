@@ -16,7 +16,7 @@ import Vue from 'vue'
 import swiper from '@/components/Swiper'
 import tapbar from '../components/Tapbar'
 import http from '@/utils/http'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 export default {
   components: {
     tapbar,
@@ -28,7 +28,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('cityN',['cityId'])
+    ...mapState('cityN', ['cityId'])
   },
   mounted () {
     http
@@ -39,7 +39,7 @@ export default {
         }
       })
       .then(res => {
-        if(res.data.data){
+        if (res.data.data) {
           const obj = {
             imgUrl:
               'https://pic.maizuo.com/usr/movie/f046c5d6b2c397a8194ab14dc439d7dd.jpg?x-oss-process=image/quality,Q_70',

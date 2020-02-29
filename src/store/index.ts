@@ -4,23 +4,22 @@ import cinema from '../store/module/cinemaModule'
 import tabber from '../store/module/tabber'
 import city from '../store/module/findCityList'
 import cityN from '../store/module/cityModule'
-import createPersistedState from "vuex-persistedstate";
+import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [createPersistedState({
-    reducer(data:any){
+    reducer (data: any) {
       return {
-        cityN : data.cityN
+        cityN: data.cityN
       }
-    } 
+    }
   })],
   state: {
-   
+
   },
   mutations: {
-   
-   
+
   },
   actions: {
 

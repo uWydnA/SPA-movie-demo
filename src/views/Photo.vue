@@ -18,7 +18,7 @@ export default {
       this.$emit('isshow')
     },
     handleSwiper (index) {
-      this.$emit('showPhoto',index)
+      this.$emit('showPhoto', index)
     }
   }
 }

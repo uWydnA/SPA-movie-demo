@@ -13,22 +13,22 @@
   </div>
 </template>
 <script>
-import Vue from "vue";
-import tabbar from "./components/Tabbar";
-import animate from "animate.css";
-import axios from "axios";
-import { mapState } from "vuex";
-Vue.prototype.axios = axios;
+import Vue from 'vue'
+import tabbar from './components/Tabbar'
+import animate from 'animate.css'
+import axios from 'axios'
+import { mapState } from 'vuex'
+Vue.prototype.axios = axios
 
-Vue.use(animate);
+Vue.use(animate)
 export default {
   components: {
     tabbar
   },
   computed: {
-    ...mapState("tabber", ["isTabberShow"])
+    ...mapState('tabber', ['isTabberShow'])
   }
-};
+}
 </script>
 
 <style lang="scss">
